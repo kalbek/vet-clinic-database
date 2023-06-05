@@ -1,3 +1,4 @@
+# Vet Clinic Database
 ## Getting Started
 
 This repository includes files with plain SQL that can be used to recreate a database:
@@ -7,30 +8,6 @@ This repository includes files with plain SQL that can be used to recreate a dat
 - Check [queries.sql](./queries.sql) for examples of queries that can be run on a newly created database. **Important note: this file might include queries that make changes in the database (e.g., remove records). Use them responsibly!**
 
 <a name="readme-top"></a>
-
-<!--
-HOW TO USE:
-This is an example of how you may give instructions on setting up your project locally.
-
-Modify this file to match your project and remove sections that don't apply.
-
-REQUIRED SECTIONS:
-- Table of Contents
-- About the Project
-  - Built With
-  - Live Demo
-- Getting Started
-- Authors
-- Future Features
-- Contributing
-- Show your support
-- Acknowledgements
-- License
-
-After you're finished please remove all the comments and instructions!
--->
-
-<!-- TABLE OF CONTENTS -->
 
 # 📗 Table of Contents
 
@@ -55,17 +32,15 @@ After you're finished please remove all the comments and instructions!
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [vet-clinic-database] <a name="about-project"></a>
+# 📖 Vet Clinic Database <a name="about-project"></a>
 
 > Microverse database project.
 
-**[vet-clinic-database]** is a database project which use a relational database to create the initial data structure for a vet clinic.
+**vet-clinic-database** is a database project which use a relational database to create the initial data structure for a vet clinic.
 
-## 🛠 Built With <a name="built-with">SQL</a>
+## 🛠 Built With <a name="built-with">PostgreSQL</a>
 
-### Tech Stack <a name="tech-stack">SQL, PostgreSQL</a>
-
-> Describe the tech stack and include only the relevant sections that apply to your project.
+### Tech Stack <a name="tech-stack">PostgreSQL</a>
 
 <details>
 <summary>Database</summary>
@@ -78,9 +53,9 @@ After you're finished please remove all the comments and instructions!
 
 ### Key Features <a name="key-features"></a>
 
-- **[creates a database named vet_clinic.]**
-- **[creates a table named animals.]**
-- **[writes queries for quests.]**
+- **creates a database named vet_clinic.**
+- **creates a table named animals.**
+- **writes queries for quests.**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -96,9 +71,12 @@ N/A
 
 ## 💻 Getting Started <a name="getting-started"></a>
 
-> Describe how a new developer could make use of your project.
-
 To get a local copy up and running, follow these steps.
+- clone the repository
+- create vet_clinic database
+- run [schema.sql](./schema.sql)
+- run [data.sql](./data.sql)
+- run [queries.sql](./queries.sql)
 
 ### Prerequisites
 
@@ -142,9 +120,7 @@ You can deploy this project using gh-pages
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- [ ] **[new_feature_1]**
-- [ ] **[new_feature_2]**
-- [ ] **[new_feature_3]**
+- [ ] **New features will be added as per project requirement.**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
