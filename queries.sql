@@ -11,5 +11,14 @@ COMMIT;
 -- Verify that changes persist after commit.
 SELECT * FROM animals;
 
+-- Start a transaction
+BEGIN;
 
+-- Delete all records in the animals table.
+DELETE FROM animals;
 
+-- Roll back the transaction.
+ROLLBACK;
+
+-- Verify if all records in the animals table still exist.
+SELECT * FROM animals;
