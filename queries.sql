@@ -29,6 +29,9 @@ BEGIN;
 -- Delete all records in the animals table.
 DELETE FROM animals;
 
+-- Confirm all animals are deleted.
+SELECT * FROM animals;
+
 -- Roll back the transaction.
 ROLLBACK;
 
