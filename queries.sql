@@ -1,3 +1,15 @@
+BEGIN;
+-- set the species column to unspecified
+UPDATE animals SET species = 'unspecified';
+
+-- Verify that the change was made
+SELECT * FROM animals;
+
+-- Roll back the change
+ROLLBACK;
+
+-- Verify that the species column went back to its state before the transaction
+SELECT * FROM animals;
 
 -- Update the animals table by setting the species column to 'digimon' for all animals that have a name ending in 'mon'
 BEGIN;
