@@ -33,3 +33,12 @@ ALTER TABLE animals ADD COLUMN owner_id INTEGER REFERENCES owners(id);
 -- Set the id column as auto-incremented primary key
 ALTER TABLE animals ALTER COLUMN id SET DEFAULT nextval('animals_id_seq');
 ALTER TABLE animals ADD PRIMARY KEY (id);
+
+INSERT INTO owners (full_name, age)
+VALUES ('Sam Smith', 34),
+       ('Jennifer Orwell', 19),
+       ('Bob', 45),
+       ('Melody Pond', 77),
+       ('Dean Winchester', 14),
+       ('Jodie Whittaker', 38);
+
