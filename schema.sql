@@ -48,5 +48,22 @@ SET species_id = (SELECT id FROM species WHERE name = CASE WHEN name LIKE '%mon'
 
 -- Add the foreign key constraint to the species_id column
 ALTER TABLE animals ADD CONSTRAINT fk_species FOREIGN KEY (species_id) REFERENCES species(id);
+-- Set the owner_id value based on the animal's owner
+UPDATE animals
+SET owner_id = (SELECT id FROM owners WHERE full_name = CASE name
+                                                            WHEN 'Agumon' THEN 'Sam Smith'
+                                                            WHEN 'Gabumon' THEN 'Jennifer Orwell'
+                                                            WHEN 'Pikachu' THEN 'Jennifer Orwell'
+                                                            WHEN 'Devimon' THEN 'Bob'
+                                                            WHEN 'Plantmon' THEN 'Bob'
+                                                            WHEN 'Charmander' THEN 'Melody Pond'
+                                                            WHEN 'Squirtle' THEN 'Melody Pond'
+                                                            WHEN 'Blossom' THEN 'Melody Pond'
+                                                            WHEN 'Angemon' THEN 'Dean Winchester'
+                                                            WHEN 'Boarmon' THEN 'Dean Winchester'
+                                                       END);
+
+-- Add the foreign key constraint to the owner_id column
+-- ALTER TABLE animals ADD CONSTRAINT fk_owners FOREIGN KEY (owner_id) REFERENCES owners(id);
 
 
