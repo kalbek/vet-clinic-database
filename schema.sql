@@ -42,3 +42,11 @@ VALUES ('Sam Smith', 34),
        ('Dean Winchester', 14),
        ('Jodie Whittaker', 38);
 
+       -- Set the species_id value based on the animal's name
+UPDATE animals
+SET species_id = (SELECT id FROM species WHERE name = CASE WHEN name LIKE '%mon' THEN 'Digimon' ELSE 'Pokemon' END);
+
+-- Add the foreign key constraint to the species_id column
+ALTER TABLE animals ADD CONSTRAINT fk_species FOREIGN KEY (species_id) REFERENCES species(id);
+
+
