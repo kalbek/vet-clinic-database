@@ -79,47 +79,87 @@
 -- SELECT name, AVG(escape_attempts) FROM animals WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31' GROUP BY name;
 
 -- What animals belong to Melody Pond?
-SELECT animals.name
-FROM animals
-JOIN owners ON animals.owner_id = owners.id
-WHERE owners.full_name = 'Melody Pond';
+-- SELECT animals.name
+-- FROM animals
+-- JOIN owners ON animals.owner_id = owners.id
+-- WHERE owners.full_name = 'Melody Pond';
 
--- List of all animals that are pokemon (their type is Pokemon).
-SELECT animals.name
-FROM animals
-JOIN species ON animals.species_id = species.id
-WHERE species.name = 'Pokemon';
+-- -- List of all animals that are pokemon (their type is Pokemon).
+-- SELECT animals.name
+-- FROM animals
+-- JOIN species ON animals.species_id = species.id
+-- WHERE species.name = 'Pokemon';
 
--- List all owners and their animals, remember to include those that don’t own any animal.
-SELECT owners.full_name, animals.name
-FROM owners
-LEFT JOIN animals ON owners.id = animals.owner_id;
+-- -- List all owners and their animals, remember to include those that don’t own any animal.
+-- SELECT owners.full_name, animals.name
+-- FROM owners
+-- LEFT JOIN animals ON owners.id = animals.owner_id;
 
--- How many animals are there per species?
-SELECT species.name, COUNT(animals.id) AS count
-FROM species
-LEFT JOIN animals ON species.id = animals.species_id
-GROUP BY species.name;
+-- -- How many animals are there per species?
+-- SELECT species.name, COUNT(animals.id) AS count
+-- FROM species
+-- LEFT JOIN animals ON species.id = animals.species_id
+-- GROUP BY species.name;
 
--- List all Digimon owned by Jennifer Orwell.
-SELECT animals.name
-FROM animals
-JOIN species ON animals.species_id = species.id
-JOIN owners ON animals.owner_id = owners.id
-WHERE species.name = 'Digimon' AND owners.full_name = 'Jennifer Orwell';
+-- -- List all Digimon owned by Jennifer Orwell.
+-- SELECT animals.name
+-- FROM animals
+-- JOIN species ON animals.species_id = species.id
+-- JOIN owners ON animals.owner_id = owners.id
+-- WHERE species.name = 'Digimon' AND owners.full_name = 'Jennifer Orwell';
 
--- List all animals owned by Dean Winchester that haven’t tried to escape.
-SELECT *
-FROM animals
-JOIN owners ON animals.owner_id = owners.id
-WHERE owners.full_name = 'Dean Winchester' AND escaped IS NULL;
+-- -- List all animals owned by Dean Winchester that haven’t tried to escape.
+-- SELECT *
+-- FROM animals
+-- JOIN owners ON animals.owner_id = owners.id
+-- WHERE owners.full_name = 'Dean Winchester' AND escaped IS NULL;
 
--- Who owns the most animals?
-SELECT owners.full_name, COUNT(animals.id) AS count
-FROM owners
-LEFT JOIN animals ON owners.id = animals.owner_id
-GROUP BY owners.full_name
-ORDER BY count DESC LIMIT 1;
+-- -- Who owns the most animals?
+-- SELECT owners.full_name, COUNT(animals.id) AS count
+-- FROM owners
+-- LEFT JOIN animals ON owners.id = animals.owner_id
+-- GROUP BY owners.full_name
+-- ORDER BY count DESC LIMIT 1;
+
+
+
+-- Who was the last animal seen by William Tatcher?
+SELECT animals.name AS animal_name
+FROM visits
+JOIN animals ON visits.animal_id = animals.id
+WHERE visits.vet_id = (SELECT id FROM vets WHERE name = 'William Tatcher')
+ORDER BY visits.visit_date DESC
+LIMIT 1;
+
+
+-- How many different animals did Stephanie Mendez see?
+SELECT COUNT(DISTINCT animal_id) FROM visits JOIN vets ON visits.vet_id = vets.id WHERE vets.name = 'Stephanie Mendez';
+
+-- List all vets and their specialties, including vets with no specialties.
+SELECT vets.name AS vet_name, species.name AS specialty_name
+FROM vets
+LEFT JOIN specializations ON vets.id = specializations.vet_id
+LEFT JOIN species ON specializations.species_id = species.id;
+
+-- List all animals that visited Stephanie Mendez between April 1st and August 30th, 2020.
+SELECT animals.name FROM visits JOIN vets ON visits.vet_id = vets.id JOIN animals ON visits.animal_id = animals.id WHERE vets.name = 'Stephanie Mendez' AND visits.visit_date BETWEEN '2020-04-01' AND '2020-08-30';
+
+-- What animal has the most visits to vets?
+SELECT animals.name, COUNT(*) AS visit_count FROM visits JOIN animals ON visits.animal_id = animals.id GROUP BY animals.name ORDER BY visit_count DESC LIMIT 1;
+
+-- Who was Maisy Smith’s first visit?
+SELECT vets.name FROM visits JOIN vets ON visits.vet_id = vets.id JOIN animals ON visits.animal_id = animals.id WHERE animals.name = 'Maisy Smith' ORDER BY visits.visit_date ASC LIMIT 1;
+
+-- Details for most recent visit: animal information, vet information, and date of visit.
+SELECT animals.name AS animal_name, vets.name AS vet_name, visits.visit_date FROM visits JOIN animals ON visits.animal_id = animals.id JOIN vets ON visits.vet_id = vets.id ORDER BY visit_date DESC LIMIT 1;
+
+-- How many visits were with a vet that did not specialize in that animal’s species?
+SELECT COUNT(*) FROM visits JOIN vets ON visits.vet_id = vets.id JOIN animals ON visits.animal_id = animals.id LEFT JOIN specializations ON (vets.id = specializations.vet_id AND animals.species_id != specializations.species_id) WHERE specializations.species_id IS NULL;
+
+-- What specialty should Maisy Smith consider getting? Look for the species she gets the most.
+SELECT species.name FROM ( SELECT specializations.species_id FROM specializations JOIN vets ON specializations.vet_id = vets.id WHERE vets.name = 'Maisy Smith' GROUP BY species_id ORDER BY COUNT(*) DESC LIMIT 1 ) AS most_common_species JOIN species ON species.id = most_common_species.species_id;
+
+
 
 
 
