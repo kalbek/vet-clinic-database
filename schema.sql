@@ -89,5 +89,9 @@ ALTER TABLE temp_visits RENAME TO visits;
 -- ALTER TABLE visits_old RENAME TO visits;
 
 
+CREATE INDEX idx_owners_email ON owners (email);
+
+
+
 
 
