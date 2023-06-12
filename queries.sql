@@ -1,6 +1,5 @@
 
 -- query to check performance
--- explain analyze SELECT COUNT(*) FROM visits where animal_id = 4;
 
 explain analyze SELECT COUNT(*) FROM visits where animal_id = 4;
 explain analyze SELECT * FROM visits where vet_id = 2;
