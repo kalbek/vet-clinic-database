@@ -70,6 +70,11 @@
 -- CREATE INDEX visits_animal_id_idx ON visits (animal_id);
 -- CREATE INDEX visits_vet_id_idx ON visits (vet_id);
 
+-- reduce performance for first query
+SHOW INDEX FROM visits;
+DROP INDEX visits_animal_id_idx ON visits;
+
+
 SELECT vet_id, COUNT(*)
 FROM visits
 GROUP BY vet_id
