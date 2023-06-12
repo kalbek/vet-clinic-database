@@ -159,6 +159,11 @@
 -- -- What specialty should Maisy Smith consider getting? Look for the species she gets the most.
 -- SELECT species.name FROM ( SELECT specializations.species_id FROM specializations JOIN vets ON specializations.vet_id = vets.id WHERE vets.name = 'Maisy Smith' GROUP BY species_id ORDER BY COUNT(*) DESC LIMIT 1 ) AS most_common_species JOIN species ON species.id = most_common_species.species_id;
 
+--The following queries are taking too much time (1 sec = 1000ms can be considered as too much time for database query). Try them on your machine to confirm it:
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animals_id = 4;
+EXPLAIN ANALYZE SELECT * FROM visits where vets_id = 2;
+EXPLAIN ANALYSE SELECT * FROM owners where email = 'owners_18327@mail.com';
+
 
 
 
