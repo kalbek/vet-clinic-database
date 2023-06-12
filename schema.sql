@@ -1,56 +1,28 @@
-/* Database schema to keep the structure of entire database. */
+-- reduce performance for first query
+SHOW INDEX FROM visits;
+DROP INDEX visits_animal_id_idx ON visits;
 
-CREATE TABLE animals (
-   id SERIAL PRIMARY KEY,
-   name VARCHAR(255),
-   date_of_birth DATE,
-   escape_attempts INT,
-   neutered BOOLEAN,
-   weight_kg DECIMAL(5,2)
-);
-ALTER TABLE animals ADD COLUMN species VARCHAR(255);
 
-CREATE TABLE owners (
-    id SERIAL PRIMARY KEY,
-    full_name VARCHAR(255) NOT NULL,
-    age INTEGER NOT NULL
-);
+SELECT vet_id, COUNT(*)
+FROM visits
+GROUP BY vet_id
+HAVING COUNT(*) > 1;
 
-CREATE TABLE species (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
-);
 
--- Drop the species column
-ALTER TABLE animals DROP COLUMN species;
+CREATE TABLE temp_visits AS
+SELECT DISTINCT ON (vet_id) *
+FROM visits
+ORDER BY vet_id, visit_date DESC;  
 
--- Add the species_id column as a foreign key referencing the species table
-ALTER TABLE animals ADD COLUMN species_id INTEGER REFERENCES species(id);
 
--- Add the owner_id column as a foreign key referencing the owners table
-ALTER TABLE animals ADD COLUMN owner_id INTEGER REFERENCES owners(id);
+ALTER TABLE visits RENAME TO visits_old;
+ALTER TABLE temp_visits RENAME TO visits;
+-- DROP TABLE visits_old;
 
--- Set the id column as auto-incremented primary key
--- ALTER TABLE animals ALTER COLUMN id SET DEFAULT nextval('animals_id_seq');
--- ALTER TABLE animals ADD PRIMARY KEY (id);
+-- add index on email column of owners table to improve performance for third query.
+CREATE INDEX idx_owners_email ON owners (email);
 
-CREATE TABLE vets (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(255),
-  age INTEGER,
-  date_of_graduation DATE
-);
 
-CREATE TABLE specializations (
-  vet_id INTEGER REFERENCES vets(id),
-  species_id INTEGER REFERENCES species(id),
-  PRIMARY KEY (vet_id, species_id)
-);
 
-CREATE TABLE visits (
-  vet_id INTEGER REFERENCES vets(id),
-  animal_id INTEGER REFERENCES animals(id),
-  visit_date DATE,
-  PRIMARY KEY (vet_id, animal_id)
-);
+
 
