@@ -23,6 +23,14 @@ CREATE TABLE medical_histories (
   name VARCHAR (40)
 );
 
+CREATE TABLE invoice_items (
+  id SERIAL PRIMARY INTEGER,
+  unit_price DECIMAL(10,2),
+  quantity INT,
+  invoice_id INT,
+  treatment_id INT REFERENCES treatments(id)
+);
+
 CREATE TABLE invoices (
   id SERIAL PRIMARY INTEGER,
   totat_amount DECIMAL(10,2),
@@ -31,11 +39,4 @@ CREATE TABLE invoices (
   medical_history_id INT
 );
 
-CREATE TABLE invoice_items (
-  id SERIAL PRIMARY INTEGER,
-  unit_price DECIMAL(10,2),
-  quantity INT,
-  invoice_id INT,
-  treatment_id INT
-);
 
