@@ -1,8 +1,15 @@
 CREATE TABLE patients (
-  id SERIAL PRIMARY INTEGER,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(255),
-  date_of_table DATE
+  date_of_birth DATE
 );
+
+CREATE TABLE medical_histories (
+  id SERIAL PRIMARY KEY,
+  admitted_at TIMESTAMP,
+  patient_id INT REFERENCES patients(id),
+  status VARCHAR (50) 
+ );
 
 CREATE TABLE invoices (
   id SERIAL PRIMARY INTEGER,
@@ -20,12 +27,6 @@ CREATE TABLE invoice_items (
   treatment_id INT
 );
 
-CREATE TABLE medical_histories (
-  id SERIAL PRIMARY INTEGER,
-  admitted_at TIMESTAMP,
-  patient_id INT,
-  status VARCHAR (50) ,
- );
 
  CREATE TABLE treatments (
   id SERIAL PRIMARY INTEGER,
