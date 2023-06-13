@@ -36,7 +36,7 @@ CREATE TABLE invoices (
   totat_amount DECIMAL(10,2),
   generated_at TIMESTAMP,
   payed_at TIMESTAMP,
-  medical_history_id INT
+  medical_history_id INT UNIQUE REFERENCES medical_histories(id),
 );
 
 
