@@ -19,3 +19,10 @@ CREATE TABLE invoice_items (
   invoice_id INT,
   treatment_id INT
 );
+
+CREATE TABLE medical_histories (
+  id SERIAL PRIMARY INTEGER,
+  admitted_at TIMESTAMP,
+  patient_id INT,
+  status VARCHAR (50) ,
+ );
