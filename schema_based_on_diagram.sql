@@ -27,7 +27,7 @@ CREATE TABLE invoice_items (
   id SERIAL PRIMARY INTEGER,
   unit_price DECIMAL(10,2),
   quantity INT,
-  invoice_id INT,
+  invoice_id INT REFERENCES invoices(id),
   treatment_id INT REFERENCES treatments(id)
 );
 
