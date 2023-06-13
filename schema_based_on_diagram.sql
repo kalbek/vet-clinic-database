@@ -12,3 +12,10 @@ CREATE TABLE invoices (
   medical_history_id INT
 );
 
+CREATE TABLE invoice_items (
+  id SERIAL PRIMARY INTEGER,
+  unit_price DECIMAL(10,2),
+  quantity INT,
+  invoice_id INT,
+  treatment_id INT
+);
