@@ -26,3 +26,9 @@ CREATE TABLE medical_histories (
   patient_id INT,
   status VARCHAR (50) ,
  );
+
+ CREATE TABLE treatments (
+  id SERIAL PRIMARY INTEGER,
+  type VARCHAR (50),
+  name VARCHAR (40)
+);
